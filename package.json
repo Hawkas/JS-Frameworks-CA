@@ -34,7 +34,7 @@
     "dayjs": "^1.11.0",
     "embla-carousel-react": "^7.0.0",
     "next": "12.2.5",
-    "pokemon-tcg-sdk-typescript": "^1.3.4",
+    "pokemon-tcg-sdk-typescript": "^2.1.2-beta.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
