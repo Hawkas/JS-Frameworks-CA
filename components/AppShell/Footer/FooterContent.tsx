@@ -1,12 +1,9 @@
 import { PrimaryButton } from '@Buttons/PrimaryButton';
-import { SignIn } from '@components/Modal/LogIn/SignIn';
+import { Contact } from '@components/Contact/Contact';
 import { Box, createStyles, Text } from '@mantine/core';
 import { useModals } from '@mantine/modals';
-import Logo from '@public/logobig-footer.svg';
 import { useContainerStyles } from '@styles/containerStyles';
 import { useTextStyles } from '@styles/typography';
-import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
 
 const useFooterStyles = createStyles((theme) => ({
   wrapper: {
@@ -42,49 +39,28 @@ const useFooterStyles = createStyles((theme) => ({
 }));
 
 export function FooterContent() {
-  const { data: session } = useSession();
   const modals = useModals();
   const { classes, cx } = useFooterStyles();
   const { classes: textClass } = useTextStyles();
   const {
     classes: { container },
   } = useContainerStyles();
-  const openSignInModal = () => {
-    modals.openContextModal('signIn', {
-      id: 'sign-in',
+  const openContactModal = () => {
+    modals.openContextModal('contact', {
       innerProps: {
-        modalBody: <SignIn />,
+        modalBody: <Contact />,
       },
     });
   };
   return (
     <Box component="div" className={cx(container, classes.wrapper)}>
       <Box component="div" className={classes.upperSection}>
-        <Link href="/" passHref>
-          <a aria-label="To home">
-            <Logo className={classes.logo} viewBox="0 0 152 31" />
-          </a>
-        </Link>
-        {session ? (
-          <PrimaryButton
-            variant="outline"
-            className={classes.logIn}
-            onClick={() => {
-              signOut({
-                redirect: false,
-              });
-            }}
-          >
-            Log out
-          </PrimaryButton>
-        ) : (
-          <PrimaryButton variant="outline" className={classes.logIn} onClick={openSignInModal}>
-            Log in
-          </PrimaryButton>
-        )}
+        <PrimaryButton variant="outline" className={classes.logIn} onClick={openContactModal}>
+          Contact us
+        </PrimaryButton>
       </Box>
       <Text component="small" className={textClass.finePrint}>
-        2022 © Holidaze. All rights reserved.
+        2022 © Torbjørn Haukås. All rights reserved.
       </Text>
     </Box>
   );

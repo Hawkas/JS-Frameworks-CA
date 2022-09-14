@@ -1,5 +1,4 @@
 import { Contact } from '@components/Contact/Contact';
-import { LoadingOverlay } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 
 import { NavLink, NavLinkProps } from './NavLink';
@@ -14,7 +13,6 @@ export function NavMenu({ menuBreak, onClick }: Pick<NavLinkProps, 'menuBreak' |
   const modals = useModals();
   const openContactModal = () => {
     modals.openContextModal('contact', {
-      id: 'contact-us',
       innerProps: {
         modalBody: <Contact />,
       },

@@ -1,7 +1,5 @@
 import { Burger, MantineNumberSize, MediaQuery, useMantineTheme } from '@mantine/core';
-import Logo from '@public/logobig.svg';
 import { useContainerStyles } from 'lib/styles/containerStyles';
-import Link from 'next/link';
 import { useHeaderStyles } from './HeaderTop.styles';
 import { NavMenu } from './Navigation/NavMenu';
 
@@ -20,11 +18,6 @@ export function HeaderTop({ opened, menuBreak, clickEvent }: HeaderProps) {
   return (
     <>
       <div className={cx(container, classes.headerInner)}>
-        <Link href="/" passHref>
-          <a aria-label="To home" className={classes.logo}>
-            <Logo />
-          </a>
-        </Link>
         <MediaQuery largerThan={menuBreak} styles={{ display: 'none' }}>
           <Burger opened={opened} onClick={clickEvent} size="md" color={theme.white} />
         </MediaQuery>

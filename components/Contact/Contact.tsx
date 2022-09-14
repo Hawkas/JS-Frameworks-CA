@@ -1,31 +1,31 @@
 import { PrimaryButton } from '@Buttons/PrimaryButton';
-import { ActionIcon, Alert, Group, Paper, Text, Textarea, TextInput } from '@mantine/core';
+import { ActionIcon, Alert, Group, Paper, Select, Text, Textarea, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useModals } from '@mantine/modals';
-import { IconX, IconCheck } from '@tabler/icons';
+import { IconCheck, IconChevronDown, IconX } from '@tabler/icons';
 import { useTextStyles } from 'lib/styles/typography';
 import { useState } from 'react';
 import { z } from 'zod';
 import { useStyles } from './Contact.styles';
 
+const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 const contactSchema = z.object({
   name: z.string().min(1, { message: 'Please enter your name' }),
-  email: z.string().email({ message: 'Invalid email' }),
-  subject: z
-    .string()
-    .min(1, { message: 'Your message needs a subject' })
-    .max(40, { message: 'Must be fewer than 40 characters' }),
+  phone: z.string().regex(phoneRegex, {
+    message: 'Invalid phone number',
+  }),
+  query: z.string().trim().min(1, { message: 'You must select message type' }),
   message: z
     .string()
-    .min(25, { message: 'Must be 25 or more characters long' })
+    .min(1, { message: 'Can not be empty' })
     .max(1000, { message: 'Please limit your message to 1000 characters' }),
 });
 
 export function Contact() {
   const modals = useModals();
   const form = useForm({
-    schema: zodResolver(contactSchema),
-    initialValues: { name: '', email: '', subject: '', message: '' },
+    validate: zodResolver(contactSchema),
+    initialValues: { name: '', phone: '', query: '', message: '' },
   });
 
   // Since the messages use the NextJS api, they should only fail to submit if, well,
@@ -84,21 +84,25 @@ export function Contact() {
                 input: classes.textInput,
               }}
               mt="xl"
-              label="Email"
-              placeholder="Enter your email"
-              {...form.getInputProps('email')}
+              label="Phone Number"
+              placeholder="Enter your phone number"
+              {...form.getInputProps('phone')}
             />
 
-            <TextInput
+            <Select
               classNames={{
                 label: cx(classes.label, textClass.label),
                 root: classes.root,
                 input: classes.textInput,
               }}
               mt="xl"
-              label="Subject"
-              placeholder="Enter a subject"
-              {...form.getInputProps('subject')}
+              label="Query type"
+              placeholder="Select a query type"
+              data={['Enquiry', 'Complaint', 'Compliment', 'General Message']}
+              rightSection={<IconChevronDown size={14} />}
+              styles={{ rightSection: { pointerEvents: 'none' } }}
+              rightSectionWidth={40}
+              {...form.getInputProps('query')}
             />
 
             <Textarea

@@ -1,8 +1,6 @@
 import { AppShell, createStyles, Footer, Header } from '@mantine/core';
-import useFilledState from 'lib/hooks/useFilledState';
 import { settings } from 'lib/settings';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { FooterContent } from './Footer/FooterContent';
 import { HeaderDropdown, HeaderTop } from './Header';
@@ -57,10 +55,7 @@ type Props = Omit<React.ComponentPropsWithRef<'div'>, 'title'> & {
 
 export default function Layout({ children, ...others }: Props) {
   const { classes, cx } = useStyles();
-  const router = useRouter();
   const [opened, setOpened] = useState(false);
-  const filledState = useFilledState();
-  const headerCheck = !filledState && !opened && router.pathname === '/';
   const clickEvent = () => {
     setOpened((o) => !o);
   };
@@ -72,11 +67,7 @@ export default function Layout({ children, ...others }: Props) {
       }}
       padding={0}
       header={
-        <Header
-          fixed
-          className={cx(classes.header, { [classes.filled]: !headerCheck })}
-          height={headerHeight}
-        >
+        <Header fixed className={cx(classes.header, classes.filled)} height={headerHeight}>
           <HeaderTop menuBreak={menuBreak} clickEvent={clickEvent} opened={opened} />
         </Header>
       }

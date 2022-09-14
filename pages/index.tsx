@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next/types';
 import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
-import { Welcome } from '../components/Welcome/Welcome';
+import { Welcome } from '../components/WelcomeBanner/Welcome';
 import { pokemonFetch } from '../lib/helpers/pokemonFetch';
 import { PokeDex } from '../types/pokemonDataType';
 
@@ -21,7 +21,6 @@ export default function HomePage(props: DataProps) {
   return (
     <>
       <Welcome />
-      <ColorSchemeToggle />
     </>
   );
 }
