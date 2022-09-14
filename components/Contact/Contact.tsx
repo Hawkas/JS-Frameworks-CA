@@ -8,7 +8,9 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { useStyles } from './Contact.styles';
 
+//? Regex taken from https://stackoverflow.com/a/16699507
 const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
 const contactSchema = z.object({
   name: z.string().min(1, { message: 'Please enter your name' }),
   phone: z.string().regex(phoneRegex, {
