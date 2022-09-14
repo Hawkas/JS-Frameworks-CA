@@ -1,11 +1,9 @@
-import { Contact } from '@components/Modal/Contact/Contact';
+import { Contact } from '@components/Contact/Contact';
 import { LoadingOverlay } from '@mantine/core';
 import { useModals } from '@mantine/modals';
-import type { Session } from 'next-auth';
-import { useSession } from 'next-auth/react';
+
 import { NavLink, NavLinkProps } from './NavLink';
 
-export type SessionType = { session: Session | null };
 interface Links {
   href: string;
   component: 'a' | 'button';
@@ -14,7 +12,6 @@ interface Links {
 }
 export function NavMenu({ menuBreak, onClick }: Pick<NavLinkProps, 'menuBreak' | 'onClick'>) {
   const modals = useModals();
-  const { data: session, status } = useSession();
   const openContactModal = () => {
     modals.openContextModal('contact', {
       id: 'contact-us',
@@ -25,12 +22,10 @@ export function NavMenu({ menuBreak, onClick }: Pick<NavLinkProps, 'menuBreak' |
   };
   const links: Links[] = [
     { href: '/', component: 'a', value: 'Home', onClick },
-    { href: '/accommodations', component: 'a', value: 'Accommodations', onClick },
+    { href: '/grass', component: 'a', value: 'Grass', onClick },
     { href: '', component: 'button', value: 'Contact us', onClick: openContactModal },
-    { href: '/admin', component: 'a', value: 'Admin', onClick },
   ];
   const navMenu = links.map((item, index) => {
-    if (!session && item.value === 'Admin') return null;
     return (
       <NavLink
         href={item.href}
@@ -43,19 +38,5 @@ export function NavMenu({ menuBreak, onClick }: Pick<NavLinkProps, 'menuBreak' |
       </NavLink>
     );
   });
-  // To avoid the nav menu flickering between logged-in/logged-out state.
-  if (status === 'loading') {
-    return (
-      <div
-        style={{
-          position: 'relative',
-          height: '100%',
-          width: '100%',
-        }}
-      >
-        <LoadingOverlay visible />
-      </div>
-    );
-  }
   return <>{navMenu}</>;
 }

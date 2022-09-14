@@ -1,10 +1,14 @@
-import { GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
-import { AppProps } from 'next/app';
-import { getCookie, setCookie } from 'cookies-next';
-import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import Layout from '@AppShell/Layout';
+import { FormModal, formModalSettings } from '@components/Contact/FormModal';
+import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { NotificationsProvider } from '@mantine/notifications';
+import { pokemonTheme } from '@styles/themeOverride';
+import { getCookie, setCookie } from 'cookies-next';
+import { GetServerSidePropsContext } from 'next';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import { useState } from 'react';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -25,10 +29,22 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       </Head>
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <NotificationsProvider>
-            <Component {...pageProps} />
-          </NotificationsProvider>
+        <MantineProvider theme={{ colorScheme, ...pokemonTheme }} withGlobalStyles withNormalizeCSS>
+          <ModalsProvider
+            modals={{
+              contact: FormModal,
+              signIn: FormModal,
+              booking: FormModal,
+              create: FormModal,
+            }}
+            modalProps={formModalSettings}
+          >
+            <NotificationsProvider>
+              <Layout {...pageProps}>
+                <Component {...pageProps} />
+              </Layout>
+            </NotificationsProvider>
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

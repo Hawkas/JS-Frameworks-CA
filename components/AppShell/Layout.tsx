@@ -60,37 +60,7 @@ export default function Layout({ children, ...others }: Props) {
   const router = useRouter();
   const [opened, setOpened] = useState(false);
   const filledState = useFilledState();
-  // Page transition effect
-  const [displayChildren, setDisplayChildren] = useState<React.ReactNode>(children);
-  const [transitionStage, setTransitionStage] = useState(false);
-
-  // Inputs changing on the location chips seem to re-render the whole page
-  const [routerPath, setRouterPath] = useState(router.pathname);
-
-  // Make the page content fade in immediately
-  useEffect(() => {
-    setTransitionStage(true);
-  }, []);
-
-  // Big whoops. I noticed how pages weren't being regenerated with updated props with SSR.
-  // This is to force an update in case the 'data' prop changes on my one and only SSR page.
-  // I did this so early on, but of course saving an entire page as a state is a bad idea.
-  // I'm letting it stay as a reminder. Also time is up.
-  useEffect(() => {
-    if (router.pathname === '/admin' && routerPath === router.pathname) {
-      setDisplayChildren(children);
-    }
-    if (routerPath === router.pathname) setDisplayChildren(children);
-  }, [others.data, others.messageData, others.bookings]);
-  // Make the page content fade out
-  useEffect(() => {
-    if (routerPath === router.pathname) return;
-    if (children !== displayChildren) {
-      setTransitionStage(false);
-      setRouterPath(router.pathname);
-    }
-  }, [children, router.pathname]);
-  const headerCheck = !filledState && !opened && router.pathname === '/' && transitionStage;
+  const headerCheck = !filledState && !opened && router.pathname === '/';
   const clickEvent = () => {
     setOpened((o) => !o);
   };
@@ -123,17 +93,7 @@ export default function Layout({ children, ...others }: Props) {
         </Footer>
       }
     >
-      <div
-        onTransitionEnd={() => {
-          if (!transitionStage) {
-            setDisplayChildren(children);
-            setTransitionStage(true);
-          }
-        }}
-        className={cx(classes.content, classes[transitionStage ? 'fadeIn' : 'fadeOut'])}
-      >
-        {displayChildren}
-      </div>
+      {children}
     </AppShell>
   );
 }

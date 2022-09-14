@@ -18,7 +18,6 @@ export default function HomePage(props: DataProps) {
   } = props;
   console.log(totalCount);
   console.log(data);
-  console.log(test);
   return (
     <>
       <Welcome />

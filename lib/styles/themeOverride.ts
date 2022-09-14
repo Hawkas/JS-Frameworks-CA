@@ -2,7 +2,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 
 const lineHeight = 1.3;
 
-export const holidazeTheme: MantineThemeOverride = {
+export const pokemonTheme: MantineThemeOverride = {
   colorScheme: 'light',
   primaryShade: 6,
   defaultRadius: 'md',
