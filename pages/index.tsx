@@ -1,14 +1,24 @@
-import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
-import { pokemonFetch } from '../lib/helpers/pokemonFetch';
 import { GetStaticProps } from 'next/types';
+import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+import { Welcome } from '../components/Welcome/Welcome';
+import { pokemonFetch } from '../lib/helpers/pokemonFetch';
+import { PokeDex } from '../types/pokemonDataType';
 
+interface DataProps {
+  pokedex: PokeDex;
+}
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await pokemonFetch();
-  return { props: { data }, revalidate: 10 };
+  const pokedex = await pokemonFetch();
+  return { props: { pokedex } };
 };
 
-export default function HomePage() {
+export default function HomePage(props: DataProps) {
+  const {
+    pokedex: { data, totalCount },
+  } = props;
+  console.log(totalCount);
+  console.log(data);
+  console.log(test);
   return (
     <>
       <Welcome />
