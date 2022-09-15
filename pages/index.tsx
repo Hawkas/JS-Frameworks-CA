@@ -1,26 +1,25 @@
+import { CardSection } from '@components/CardSection/CardSection';
+import { SearchBar } from '@components/SearchBar/SearchBar';
 import { GetStaticProps } from 'next/types';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+import { useState } from 'react';
+import type { DataProps } from 'types/commonTypes';
 import { Welcome } from '../components/WelcomeBanner/Welcome';
 import { pokemonFetch } from '../lib/helpers/pokemonFetch';
-import { PokeDex } from '../types/pokemonDataType';
 
-interface DataProps {
-  pokedex: PokeDex;
-}
 export const getStaticProps: GetStaticProps = async () => {
   const pokedex = await pokemonFetch();
   return { props: { pokedex } };
 };
 
 export default function HomePage(props: DataProps) {
-  const {
-    pokedex: { data, totalCount },
-  } = props;
-  console.log(totalCount);
-  console.log(data);
+  const { pokedex } = props;
+  console.log(pokedex.data);
+  const [value, setValue] = useState('');
   return (
     <>
       <Welcome />
+      <SearchBar value={value} setValue={setValue} {...pokedex} />
+      <CardSection {...pokedex} value={value} />
     </>
   );
 }

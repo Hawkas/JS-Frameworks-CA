@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export default createStyles((theme) => ({
   title: {
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.other.brandColor,
     fontSize: 100,
     fontWeight: 900,
     letterSpacing: -2,
@@ -10,5 +10,10 @@ export default createStyles((theme) => ({
     [theme.fn.smallerThan('md')]: {
       fontSize: 50,
     },
+  },
+  poketext: {
+    fontFamily: 'Arial',
+    WebkitTextStrokeColor: '#3466AF !important',
+    WebkitTextStroke: '4px',
   },
 }));

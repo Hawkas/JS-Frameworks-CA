@@ -65,6 +65,7 @@ export default function Layout({ children, ...others }: Props) {
       classNames={{
         main: classes.main,
       }}
+      fixed={false}
       padding={0}
       header={
         <Header fixed className={cx(classes.header, classes.filled)} height={headerHeight}>
@@ -79,7 +80,7 @@ export default function Layout({ children, ...others }: Props) {
         />
       }
       footer={
-        <Footer height={214} className={classes.footer}>
+        <Footer height={214} fixed={false} className={classes.footer}>
           <FooterContent />
         </Footer>
       }
