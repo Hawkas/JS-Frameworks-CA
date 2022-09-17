@@ -1,6 +1,6 @@
 import { PokeDex } from 'pokemonDataType';
 
-export type SetValue = Dispatch<SetStateAction<string>>;
+export type SetValue = React.Dispatch<SetStateAction<string>>;
 
 export interface DataProps {
   pokedex: PokeDex;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, createStyles, SharedButtonProps, useMantineTheme } from '@mantine/core';
+import { Button, createStyles, ButtonProps, useMantineTheme } from '@mantine/core';
 import { useTextStyles } from 'lib/styles/typography';
 import Link from 'next/link';
 
@@ -24,7 +24,7 @@ export function PrimaryButton({
   gradient,
   variant,
   ...others
-}: MyButton & SharedButtonProps) {
+}: MyButton & ButtonProps) {
   const theme = useMantineTheme();
   const { classes, cx } = useButtonStyles();
   const { classes: textClass } = useTextStyles();

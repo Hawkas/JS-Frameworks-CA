@@ -31,8 +31,6 @@ const useStyles = createStyles((theme, _params, getRef) => {
       color: theme.white,
       lineHeight: 1.2,
       fontSize: 32,
-      marginTop: theme.spacing.xs,
-      marginBottom: 32,
     },
 
     image: {
@@ -42,7 +40,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundPosition: 'center',
+      backgroundPosition: 'top center',
       backgroundSize: 'cover',
       transition: 'transform 500ms ease',
     },
@@ -51,6 +49,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
       opacity: 0.9,
       fontWeight: 700,
       textTransform: 'uppercase',
+      marginTop: theme.spacing.xs,
+      marginBottom: 32,
     },
     overlay: {
       ref: overlay,
@@ -69,23 +69,24 @@ export function Card({ images: { large: image }, name, id, types, set }: Pokemon
   const { classes } = useStyles();
 
   return (
-    <Paper shadow="md" p="xl" radius="md" className={classes.card}>
-      <div className={classes.image} style={{ backgroundImage: `url(${image})` }} />
-      <div className={classes.overlay} />
-      <div className={classes.content}>
-        <Text className={classes.category} size="xs" sx={{ opacity: '0.7' }}>
-          {set.name}
-        </Text>
-        <Title order={3} className={classes.title}>
-          {name}
-        </Title>
-      </div>
-
-      <Link href={`/pokemon/${id}`} passHref>
-        <Button component="a" variant="gradient">
-          Choose
-        </Button>
-      </Link>
-    </Paper>
+    <article>
+      <Paper shadow="md" p="xl" radius="md" className={classes.card}>
+        <div className={classes.image} style={{ backgroundImage: `url(${image})` }} />
+        <div className={classes.overlay} />
+        <div className={classes.content}>
+          <Title order={2} className={classes.title}>
+            {name}
+          </Title>
+          <Text className={classes.category} size="xs" sx={{ opacity: '0.7' }}>
+            {set.name}
+          </Text>
+        </div>
+        <Link href={`/pokemon/${id}`} passHref>
+          <Button component="a" variant="gradient">
+            Choose
+          </Button>
+        </Link>
+      </Paper>
+    </article>
   );
 }

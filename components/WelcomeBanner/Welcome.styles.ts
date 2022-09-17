@@ -15,5 +15,8 @@ export default createStyles((theme) => ({
     fontFamily: 'Arial',
     WebkitTextStrokeColor: '#3466AF !important',
     WebkitTextStroke: '4px',
+    [theme.fn.smallerThan('md')]: {
+      WebkitTextStroke: '2px',
+    },
   },
 }));

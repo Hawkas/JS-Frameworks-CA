@@ -8,6 +8,7 @@ import {
   SelectItemProps,
   Text,
 } from '@mantine/core';
+import { useContainerStyles } from '@styles/containerStyles';
 import { IconSearch } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import { forwardRef, useState } from 'react';
@@ -68,50 +69,55 @@ export function SearchBar({ data, setValue, value }: PokeDex & SetStateString) {
       : [];
   const { classes, cx } = useSearchStyles();
   const {
+    classes: { container },
+  } = useContainerStyles();
+  const {
     classes: { subHeader },
   } = useTextStyles();
   return (
-    <Autocomplete
-      classNames={{
-        input: classes.searchbar,
-        wrapper: classes.wrapper,
-        label: cx(subHeader, classes.label),
-        root: classes.root,
-        icon: classes.icon,
-        dropdown: classes.dropdown,
-      }}
-      disabled={loading}
-      icon={loading ? <Loader size={20} /> : <IconSearch size={20} />}
-      iconWidth={58}
-      size="xl"
-      dropdownPosition="bottom"
-      nothingFound={
-        data && data.length > 0 ? (
-          <div>
-            <Text weight={600}>No results matching your query</Text>
-          </div>
-        ) : (
-          // In case of API failure
-          <div>
-            <Text weight={600} color="red">
-              The API is gone or completely empty, so there&apos;s nothing
-            </Text>
-          </div>
-        )
-      }
-      onItemSubmit={(item) => {
-        setLoading(true);
-        setTimeout(() => {
-          router.push(`/pokemon/${item.slug}`, undefined, { shallow: true });
-        }, 400);
-      }}
-      label="Search"
-      placeholder="Search for Pokémon"
-      itemComponent={AutoCompleteItem}
-      data={autoComplete}
-      value={value}
-      onChange={setValue}
-      filter={(value, item) => item.name.toLowerCase().includes(value.toLowerCase().trim())}
-    />
+    <Box className={container}>
+      <Autocomplete
+        classNames={{
+          input: classes.searchbar,
+          wrapper: classes.wrapper,
+          label: cx(subHeader, classes.label),
+          root: classes.root,
+          icon: classes.icon,
+          dropdown: classes.dropdown,
+        }}
+        disabled={loading}
+        icon={loading ? <Loader size={20} /> : <IconSearch size={20} />}
+        iconWidth={58}
+        size="xl"
+        dropdownPosition="bottom"
+        nothingFound={
+          data && data.length > 0 ? (
+            <div>
+              <Text weight={600}>No results matching your query</Text>
+            </div>
+          ) : (
+            // In case of API failure
+            <div>
+              <Text weight={600} color="red">
+                The API is gone or completely empty, so there&apos;s nothing
+              </Text>
+            </div>
+          )
+        }
+        onItemSubmit={(item) => {
+          setLoading(true);
+          setTimeout(() => {
+            router.push(`/pokemon/${item.slug}`, undefined, { shallow: true });
+          }, 400);
+        }}
+        label="Search"
+        placeholder="Search for Pokémon"
+        itemComponent={AutoCompleteItem}
+        data={autoComplete}
+        value={value}
+        onChange={setValue}
+        filter={(value, item) => item.name.toLowerCase().includes(value.toLowerCase().trim())}
+      />
+    </Box>
   );
 }
