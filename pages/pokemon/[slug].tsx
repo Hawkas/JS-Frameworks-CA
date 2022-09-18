@@ -1,17 +1,8 @@
 import { CollapsedContent } from '@components/SpecificPage/Collapse';
+import { Attacks } from '@components/SpecificPage/CombatFeatures';
 import { pokemonFetch } from '@helpers/pokemonFetch';
-import {
-  Box,
-  createStyles,
-  Image,
-  LoadingOverlay,
-  SimpleGrid,
-  Text,
-  ThemeIcon,
-  Title,
-} from '@mantine/core';
+import { Box, createStyles, Image, LoadingOverlay, Text, Title } from '@mantine/core';
 import { useContainerStyles } from '@styles/containerStyles';
-import { IconSwords } from '@tabler/icons';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -72,36 +63,11 @@ export default function SpecificPage({ data }: PageProps) {
           <CollapsedContent>
             <Box component="section">
               <Title order={2}>Description</Title>
-              <Text>{data.flavorText}</Text>
+              <Text>{data.flavorText ? data.flavorText : 'No description text on card'}</Text>
             </Box>
             <Box component="section">
               <Title order={2}>Attacks</Title>
-              <SimpleGrid
-                mt={16}
-                cols={3}
-                spacing={theme.spacing.xl * 2}
-                breakpoints={[
-                  { maxWidth: 980, cols: 2, spacing: 'xl' },
-                  { maxWidth: 755, cols: 1, spacing: 'xl' },
-                ]}
-              >
-                <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                  <ThemeIcon sx={{ alignSelf: 'flex-start' }} variant="light" size={40} radius={40}>
-                    <IconSwords size={20} stroke={1.5} />
-                  </ThemeIcon>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Text style={{ marginTop: theme.spacing.sm, marginBottom: 7 }}>
-                      {`${data.attacks[0].name} — ${data.attacks[0].damage} damage`}
-                    </Text>
-                    <Text size="sm" color="dimmed" style={{ lineHeight: 1.6 }}>
-                      {`Cost: ${data.attacks[0].convertedEnergyCost}`}
-                    </Text>
-                    <Text size="sm" color="dimmed" style={{ lineHeight: 1.6 }}>
-                      {data.attacks[0].text}
-                    </Text>
-                  </Box>
-                </Box>
-              </SimpleGrid>
+              <Attacks theme={theme} attacks={data.attacks} />
             </Box>
           </CollapsedContent>
         </Box>

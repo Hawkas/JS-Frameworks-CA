@@ -60,7 +60,8 @@ export function FooterContent() {
         </PrimaryButton>
       </Box>
       <Text component="small" className={textClass.finePrint}>
-        2022 © Torbjørn Haukås. All rights reserved.
+        {`2022 © Torbjørn Haukås. All rights reserved.
+        Pokémon © 1995-2022 Nintendo/Creatures Inc./GAME FREAK Inc. Pokémon and Pokémon character names are trademarks of Nintendo.`}
       </Text>
     </Box>
   );
