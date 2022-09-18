@@ -1,5 +1,5 @@
 import { CollapsedContent } from '@components/SpecificPage/Collapse';
-import { Attacks } from '@components/SpecificPage/CombatFeatures';
+import { AttackList, WeaknessList } from '@components/SpecificPage/CombatFeatures';
 import { pokemonFetch } from '@helpers/pokemonFetch';
 import { Box, createStyles, Image, LoadingOverlay, Text, Title } from '@mantine/core';
 import { useContainerStyles } from '@styles/containerStyles';
@@ -67,7 +67,15 @@ export default function SpecificPage({ data }: PageProps) {
             </Box>
             <Box component="section">
               <Title order={2}>Attacks</Title>
-              <Attacks theme={theme} attacks={data.attacks} />
+              <AttackList theme={theme} attacks={data.attacks} />
+            </Box>
+            <Box component="section">
+              <Title order={2}>Weaknesses</Title>
+              <WeaknessList theme={theme} weaknesses={data.weaknesses} />
+            </Box>
+            <Box component="section">
+              <Title order={2}>Retreat Cost</Title>
+              <WeaknessList theme={theme} weaknesses={data.weaknesses} />
             </Box>
           </CollapsedContent>
         </Box>

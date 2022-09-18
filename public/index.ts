@@ -1,16 +1,20 @@
-import Colorless from 'colorless.svg';
-import Darkness from 'darkness.svg';
-import Dragon from 'dragon.svg';
-import Fairy from 'fairy.svg';
-import Fighting from 'fighting.svg';
-import Fire from 'fire.svg';
-import Grass from 'grass.svg';
-import Lightning from 'lightning.svg';
-import Metal from 'metal.svg';
-import Psychic from 'psychic.svg';
-import Water from 'water.svg';
+import Colorless from './colorless.svg';
+import Darkness from './darkness.svg';
+import Dragon from './dragon.svg';
+import Fairy from './fairy.svg';
+import Fighting from './fighting.svg';
+import Fire from './fire.svg';
+import Grass from './grass.svg';
+import Lightning from './lightning.svg';
+import Metal from './metal.svg';
+import Psychic from './psychic.svg';
+import Water from './water.svg';
 
-export {
+interface EnergyIcons {
+  [key: string]: any;
+}
+
+const energyIcons: EnergyIcons = {
   Colorless,
   Darkness,
   Dragon,
@@ -23,3 +27,4 @@ export {
   Psychic,
   Water,
 };
+export default energyIcons;
