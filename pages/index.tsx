@@ -14,7 +14,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function HomePage(props: DataProps) {
   const { pokedex } = props;
-  console.log(pokedex.data);
   const [value, setValue] = useState('');
   return (
     <>

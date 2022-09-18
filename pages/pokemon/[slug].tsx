@@ -1,7 +1,7 @@
+import { AllTheContent } from '@components/SpecificPage/AllTheContent';
 import { CollapsedContent } from '@components/SpecificPage/Collapse';
-import { AttackList, WeaknessList } from '@components/SpecificPage/CombatFeatures';
 import { pokemonFetch } from '@helpers/pokemonFetch';
-import { Box, createStyles, Image, LoadingOverlay, Text, Title } from '@mantine/core';
+import { Box, createStyles, Image, LoadingOverlay, Title } from '@mantine/core';
 import { useContainerStyles } from '@styles/containerStyles';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -36,7 +36,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 export default function SpecificPage({ data }: PageProps) {
-  console.log(data);
   const router = useRouter();
   if (data) {
     const {
@@ -61,22 +60,7 @@ export default function SpecificPage({ data }: PageProps) {
             </Title>
           </Box>
           <CollapsedContent>
-            <Box component="section">
-              <Title order={2}>Description</Title>
-              <Text>{data.flavorText ? data.flavorText : 'No description text on card'}</Text>
-            </Box>
-            <Box component="section">
-              <Title order={2}>Attacks</Title>
-              <AttackList theme={theme} attacks={data.attacks} />
-            </Box>
-            <Box component="section">
-              <Title order={2}>Weaknesses</Title>
-              <WeaknessList theme={theme} weaknesses={data.weaknesses} />
-            </Box>
-            <Box component="section">
-              <Title order={2}>Retreat Cost</Title>
-              <WeaknessList theme={theme} weaknesses={data.weaknesses} />
-            </Box>
+            <AllTheContent data={data} theme={theme} />
           </CollapsedContent>
         </Box>
       </>

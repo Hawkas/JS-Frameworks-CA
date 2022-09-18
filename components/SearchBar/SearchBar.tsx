@@ -22,6 +22,7 @@ interface ItemProps extends SelectItemProps {
   name: string;
   image?: string;
   type?: string;
+  id: string;
 }
 
 const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
@@ -105,10 +106,9 @@ export function SearchBar({ data, setValue, value }: PokeDex & SetStateString) {
           )
         }
         onItemSubmit={(item) => {
+          setValue(item.name);
           setLoading(true);
-          setTimeout(() => {
-            router.push(`/pokemon/${item.slug}`, undefined, { shallow: true });
-          }, 400);
+          router.push(`/pokemon/${item.value}`);
         }}
         label="Search"
         placeholder="Search for Pokémon"

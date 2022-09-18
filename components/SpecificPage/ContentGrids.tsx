@@ -1,6 +1,7 @@
 import { MantineTheme, SimpleGrid } from '@mantine/core';
 import { PokemonCard } from 'types/pokemonDataType';
-import { Attack, Weakness } from './Attack';
+import { Attack } from './StatComponents/Attack';
+import { Weakness } from './StatComponents/Weakness';
 
 interface AttacksProps extends Pick<PokemonCard, 'attacks'> {
   theme: MantineTheme;
@@ -38,7 +39,7 @@ export function WeaknessList({ weaknesses, theme }: WeaknessesProps): JSX.Elemen
   return (
     <SimpleGrid
       mt={16}
-      cols={3}
+      cols={1}
       spacing={theme.spacing.xl * 2}
       breakpoints={[
         { maxWidth: 980, cols: 2, spacing: 'xl' },
